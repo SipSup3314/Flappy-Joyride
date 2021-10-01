@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- We only include this to explicitly loosen the CSP of various packager environments. It does not provide any security. -->
   <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline' 'unsafe-eval' data: blob:">
-  <title>Flappy Bird Controls Mod v0</title>
+  <title>Flappy Bird Controls Mod v1</title>
   <style>
     body {
       color: #ffffff;
@@ -177,6 +177,7 @@
       const scaffolding = new Scaffolding.Scaffolding();
       scaffolding.width = 480;
       scaffolding.height = 360;
+      scaffolding.resizeToFill = false;
       scaffolding.setup();
       scaffolding.appendTo(appElement);
 
@@ -244,7 +245,7 @@
             }
           } else {
             if (document.body.requestFullscreen) {
-              document.body.requestFullscreen()
+              document.body.requestFullscreen();
             } else if (document.body.webkitRequestFullscreen) {
               document.body.webkitRequestFullscreen();
             }
@@ -283,7 +284,7 @@
       if (vm.setRuntimeOptions) vm.setRuntimeOptions({
         fencing: true,
         miscLimits: true,
-        maxClones: 300,
+        maxClones: 9999999999,
       });
       if (vm.setCompilerOptions) vm.setCompilerOptions({
         enabled: true,
@@ -318,6 +319,21 @@
         }
       });
     }
+
+    // Electron hook
+    if (false) {
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "F11") {
+          e.preventDefault();
+          if (document.fullscreenElement) {
+            document.exitFullscreen();
+          } else {
+            document.body.requestFullscreen();
+          }
+        }
+      });
+    }
+
     
   </script>
   <script>
